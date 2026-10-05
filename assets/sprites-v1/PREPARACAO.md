@@ -27,7 +27,7 @@ máscara original. Não houve nova geração de imagens.
 | Tempo | Troll | Gamer |
 | --- | --- | --- |
 | 0 ms | Portal abre | Neutro |
-| 450 ms | Entrada, sem mudança de escala | Neutro |
+| 450 ms | Aparece diante do portal em 250 ms, sem deslocamento lateral ou mudança de escala | Neutro |
 | 1200 ms | Prepara a marreta | Neutro |
 | 1900 ms | Golpe e brilho de impacto | Olho fechado |
 | 2100 ms em diante | Marreta abaixada, portal aberto | Confuso, passarinhos circulando continuamente |

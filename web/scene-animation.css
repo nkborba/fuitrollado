@@ -1,5 +1,5 @@
-/* Quadros com cinto e piso alinhados. Movimento de entrada sem mudar a escala. */
-.troll-actor{position:absolute;left:4.5%;bottom:0;width:73.125%;aspect-ratio:900/760;z-index:4;pointer-events:none;opacity:0;transform:translateX(-15%)}
+/* O troll se materializa diante do portal, sem deslocamento lateral ou escala. */
+.troll-actor{position:absolute;left:4.5%;bottom:0;width:73.125%;aspect-ratio:900/760;z-index:4;pointer-events:none;opacity:0}
 .troll-pose{position:absolute;inset:0}
 .gamer-pose{position:absolute;inset:0;pointer-events:none}
 .scene [data-pose][hidden]{display:none}
@@ -9,8 +9,8 @@
 .scene:is([data-phase="idle"],[data-phase="waiting"]) .portal-wrap{transition:none}
 .scene[data-state="not_credible"] .portal-wrap{opacity:0;transform:scaleX(.05)}
 .scene:is([data-phase="portal"],[data-phase="enter"],[data-phase="prepare"],[data-phase="strike"],[data-phase="dizzy"],[data-phase="still"]) .portal-wrap{opacity:1;transform:scaleX(1)}
-.scene:is([data-phase="enter"],[data-phase="prepare"],[data-phase="strike"],[data-phase="dizzy"],[data-phase="recover"],[data-phase="settled"],[data-phase="still"]) .troll-actor{opacity:1;transform:translateX(0)}
-.scene[data-phase="enter"] .troll-actor{transition:transform .65s steps(8,end),opacity .2s}
+.scene:is([data-phase="enter"],[data-phase="prepare"],[data-phase="strike"],[data-phase="dizzy"],[data-phase="recover"],[data-phase="settled"],[data-phase="still"]) .troll-actor{opacity:1}
+.scene[data-phase="enter"] .troll-actor{transition:opacity .25s steps(5,end)}
 .scene .impact,.scene[data-state="not_credible"] .impact{display:none;animation:none}
 .scene[data-phase="strike"] .impact{display:block;left:65%;top:13%;font-size:clamp(22px,4vw,48px);line-height:1;color:#ffe48b;text-shadow:0 0 12px #ffb739}
 .dizzy-birds{display:none;position:absolute;left:30%;top:-2%;width:54%;height:12%;pointer-events:none;filter:drop-shadow(0 0 3px #edaa3266)}
