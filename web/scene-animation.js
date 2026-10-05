@@ -5,7 +5,7 @@ const PORTAL_PAUSE_MS = 1250;
 function createTrollSequence(scene) {
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const frames = [...scene.querySelectorAll('[data-pose]')];
-  const ready = Promise.all(frames.map(img => img.decode().catch(() => null)));
+  const ready = Promise.all(frames.map((img) => img.decode().catch(() => null)));
   let generation = 0;
   let request = 0;
   let active = false;
@@ -19,7 +19,7 @@ function createTrollSequence(scene) {
   ];
   function paint(phase, troll, gamer) {
     scene.dataset.phase = phase;
-    frames.forEach(img => {
+    frames.forEach((img) => {
       img.hidden = img.dataset.pose !== (img.classList.contains('troll-pose') ? troll : gamer);
     });
   }
@@ -46,7 +46,10 @@ function createTrollSequence(scene) {
     paint('waiting', 'enter', 'neutral');
     await ready;
     if (token !== generation) return;
-    if (motion.matches || document.hidden) { still(); return; }
+    if (motion.matches || document.hidden) {
+      still();
+      return;
+    }
     const start = performance.now();
     let previous = -1;
     function tick(now) {
@@ -73,5 +76,5 @@ function createTrollSequence(scene) {
     updateMotion();
   });
   window.addEventListener('pagehide', cancel);
-  return {setState};
+  return { setState };
 }

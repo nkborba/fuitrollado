@@ -1,0 +1,12 @@
+{
+  "name": "fuitrollado-dev-tools",
+  "private": true,
+  "scripts": {
+    "test": "node --test ../tests/*.test.cjs",
+    "format": "prettier --write --ignore-path ../.prettierignore ../web ../tests/*.test.cjs",
+    "format:check": "prettier --check --ignore-path ../.prettierignore ../web ../tests/*.test.cjs"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}

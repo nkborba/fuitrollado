@@ -20,15 +20,19 @@ Para mudar a porta: `PORT=8766 python app.py` no macOS/Linux.
 
 ## O que tem aqui
 
-- `web/`: HTML, CSS, JavaScript e os cinco assets usados no cenário. Fotos da equipe vêm do GitHub, com iniciais como alternativa se não carregarem.
+- `web/`: HTML, CSS, JavaScript e sprites usados no cenário. Fotos da equipe vêm do GitHub, com iniciais como alternativa se não carregarem.
 - `app.py`: API Flask e entrega dos arquivos do site.
-- `inference.py`: limpeza, representação, LR, Platt e abstenção, sem código de treino.
-- `models/`: quatro artefatos congelados, métricas, protocolo e relatório do estudo 10.
+- `prediction/`: cadastro, adaptadores de modelos, limpeza e regras de inferência.
+- `inference.py`: mantém os imports antigos de limpeza funcionando.
+- `models/`: cadastro único e pastas por família. Os artefatos e relatórios atuais ficam em `models/LR/`.
 - `tests/`: checks de previsões, entradas, CORS e acesso aos arquivos.
 - `render.yaml`: configuração para hospedar o site completo no Render.
 - `.github/workflows/pages.yml`: publicação manual da interface no GitHub Pages.
 
 ## Modelos
+
+Para adicionar um modelo, siga [models/README.md](models/README.md). Um pipeline compatível precisa do arquivo treinado e de uma entrada no manifesto. A lista do site é carregada pela API, sem edição do HTML.
+
 
 | Identificador | Versão |
 |---|---|
@@ -37,9 +41,9 @@ Para mudar a porta: `PORT=8766 python app.py` no macOS/Linux.
 | `augmentation` | LR treinada com variações ortográficas |
 | `normalizado_char` | LR normalizada com TF-IDF de palavras e caracteres |
 
-Todos usam calibração Platt. Entre 12,5% e 87,5%, sem incluir os limites, o modelo se abstém. Texto sem representação conhecida também recebe inconclusivo. O mínimo continua em 20 caracteres e o máximo em 5.000. A conversa sobre aumentar o mínimo não foi convertida em mudança de regra.
+As quatro LRs atuais usam calibração Platt. Entre 12,5% e 87,5%, sem incluir os limites, o modelo se abstém. Texto sem representação conhecida também recebe inconclusivo. O mínimo continua em 20 caracteres e o máximo em 5.000. A conversa sobre aumentar o mínimo não foi convertida em mudança de regra.
 
-Na preparação deste repo, os estimadores foram extraídos dos artefatos originais sem retreino. Conferimos as previsões em 927 textos DEV e seis sondas. A diferença máxima foi zero nas quatro versões. Isso é um teste de compatibilidade, não uma nova avaliação de desempenho. O holdout não foi utilizado. Os hashes e o registro estão em `models/validacao_exportacao.json`.
+Na preparação deste repo, os estimadores foram extraídos dos artefatos originais sem retreino. Conferimos as previsões em 927 textos DEV e seis sondas. A diferença máxima foi zero nas quatro versões. Isso é um teste de compatibilidade, não uma nova avaliação de desempenho. O holdout não foi utilizado. Os hashes e o registro estão em `models/LR/validacao_exportacao.json`.
 
 O relatório e protocolo são cópias do estudo original; referências a scripts e resultados detalhados pertencem à pasta dos estudos, que não faz parte deste repo. Aqui entram os resultados por fold e o necessário para inferência. Não carregue arquivos joblib de origem desconhecida.
 
@@ -100,7 +104,7 @@ Recortes, alinhamento e instruções para regenerar os assets estão em
 [assets/sprites-v1/PREPARACAO.md](assets/sprites-v1/PREPARACAO.md).
 
 ```sh
-node --test tests/scene-animation.test.cjs
+node --test tests/*.test.cjs
 ```
 
 ```sh
@@ -116,3 +120,23 @@ A API recebe `POST /api/analyze` com JSON:
 `GET /api/models` retorna as métricas do estudo. `GET /api/health` confirma que os modelos carregaram. Textos são processados em memória, sem armazenamento pela aplicação. A hospedagem pode registrar metadados de requisições. Não habilite debug ao publicar.
 
 Os testes automatizados também rodam no GitHub Actions. O deploy no Pages é manual. Nenhuma conta de hospedagem é criada por este repositório.
+
+## Organização do código
+
+A API fica em `app.py`. O `ModelRegistry` carrega e valida o cadastro; os adaptadores `LegacyLRClassifier` e `SklearnPipelineClassifier` tratam os formatos de arquivo. A classe `TextClassifier` concentra a resposta e a abstenção. Não há treinamento durante a execução do site.
+
+No navegador, `app.js` cuida do formulário e das respostas, `model-catalog.js` formata as informações dos modelos e `scene-animation.js` controla a sequência dos personagens. O script de preparação dos sprites só gera arquivos quando executado diretamente.
+
+## Manter a formatação
+
+Ferramentas de desenvolvimento, sem dependência de Node para hospedar a API:
+
+```sh
+pip install -r requirements-dev.txt
+npm --prefix tools ci
+ruff check .
+ruff format --check .
+npm --prefix tools run format:check
+```
+
+Para aplicar a formatação: `ruff format .` e `npm --prefix tools run format`. O GitHub Actions confere a formatação e roda os testes de Python e JavaScript.
