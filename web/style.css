@@ -50,6 +50,10 @@
 
 .hero-heading > p:last-child{font-family:monospace}
 
+/* Cursor de terminal: alterna visibilidade sem deslocar o título. */
+#team-title > span{animation:squadCursor 1s step-end infinite}
+@keyframes squadCursor{0%,100%{opacity:1}50%{opacity:0}}
+
 /* Campo mais alto, mantendo o cenário e os personagens no layout original. */
 #texto{height:240px;min-height:240px}
 
