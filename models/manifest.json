@@ -59,7 +59,16 @@
           48,
           393
         ]
-      ]
+      ],
+      "family": "LR",
+      "artifact": "LR/atual.joblib",
+      "adapter": "legacy_lr",
+      "version": "09-pipeline-confiavel-1.0",
+      "delta": 0.375,
+      "sha256": "d13156ee62a7b1b3664cd4c738f34e573b8fc040e512831e3591dd6f40de8e29",
+      "evaluation": {
+        "description": "Estudo 10: 927 textos DEV, 5 folds externos. Holdout excluído."
+      }
     },
     "normalizado": {
       "name": "LR normalizada",
@@ -113,7 +122,16 @@
           52,
           389
         ]
-      ]
+      ],
+      "family": "LR",
+      "artifact": "LR/normalizado.joblib",
+      "adapter": "legacy_lr",
+      "version": "10-robustez-textual-1.0",
+      "delta": 0.375,
+      "sha256": "15f069327ab441f31d965bbb33ed8b64c620da15139eacb31e934ff09ee040d5",
+      "evaluation": {
+        "description": "Estudo 10: 927 textos DEV, 5 folds externos. Holdout excluído."
+      }
     },
     "augmentation": {
       "name": "LR + augmentation",
@@ -167,7 +185,16 @@
           48,
           393
         ]
-      ]
+      ],
+      "family": "LR",
+      "artifact": "LR/augmentation.joblib",
+      "adapter": "legacy_lr",
+      "version": "10-robustez-textual-1.0",
+      "delta": 0.375,
+      "sha256": "0470af9c240f6a4e390252ea2741dfc687499241dbc39e0b6a45c4cfce0dc478",
+      "evaluation": {
+        "description": "Estudo 10: 927 textos DEV, 5 folds externos. Holdout excluído."
+      }
     },
     "normalizado_char": {
       "name": "LR normalizada + palavras e caracteres",
@@ -221,7 +248,16 @@
           45,
           396
         ]
-      ]
+      ],
+      "family": "LR",
+      "artifact": "LR/normalizado_char.joblib",
+      "adapter": "legacy_lr",
+      "version": "10-robustez-textual-1.0",
+      "delta": 0.375,
+      "sha256": "764cb0623fd10569d09873d49597eb490c85261a82e05064324b071857e0ee0c",
+      "evaluation": {
+        "description": "Estudo 10: 927 textos DEV, 5 folds externos. Holdout excluído."
+      }
     }
   },
   "probes": {
@@ -274,17 +310,13 @@
       }
     ]
   },
-  "artifacts": {
-    "atual": "atual.joblib",
-    "normalizado": "normalizado.joblib",
-    "augmentation": "augmentation.joblib",
-    "normalizado_char": "normalizado_char.joblib"
-  },
   "runtime_versions": {
     "numpy": "2.3.5",
     "scipy": "1.18.1",
     "scikit-learn": "1.8.0",
     "joblib": "1.6.0",
     "threadpoolctl": "3.7.0"
-  }
+  },
+  "schema_version": 2,
+  "default_model": "normalizado_char"
 }

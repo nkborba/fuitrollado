@@ -1,44 +1,427 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090e20"><title>Fui Trollado? — Analise antes de compartilhar</title><link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="./scene-animation.css"><script src="./config.js"></script><script src="./scene-animation.js" defer></script><script src="./app.js" defer></script></head><body>
-<a class="skip" href="#texto">Pular para análise</a>
-<header class="nav shell"><a class="brand" href="#inicio"><span class="brand-icon">?!</span> DATA HUNTERS</a><nav aria-label="Navegação principal"><a href="#sobre">O projeto</a><a href="#equipe">Equipe</a><span class="version">BETA 01</span></nav></header>
-<main id="inicio"><section class="hero" aria-labelledby="title"><div class="room" aria-hidden="true"></div><div class="hero-heading"><p class="eyebrow"><span></span> NEM TUDO É O QUE PARECE <span></span></p><h1 id="title">Fui Trollado<span>?</span></h1><p>Antes de compartilhar, dê um pause.</p></div>
-<div class="scene" id="scene" data-state="idle" role="img" aria-label="Quarto em pixel art com um gamer diante do computador">
-  <div class="portal-wrap"><img class="portal" src="./assets/05-portal.png" alt=""></div>
-  <div class="troll-actor" aria-hidden="true">
-    <img class="troll-pose" data-pose="enter" src="./assets/animation/troll-enter.png" alt="" hidden>
-    <img class="troll-pose" data-pose="prepare" src="./assets/animation/troll-prepare.png" alt="" hidden>
-    <img class="troll-pose" data-pose="strike" src="./assets/animation/troll-strike.png" alt="" hidden>
-    <img class="troll-pose" data-pose="recover" src="./assets/animation/troll-recover.png" alt="" hidden>
-  </div>
-  <img class="desk" src="./assets/02-estacao-gamer.png" alt="">
-  <div class="gamer-wrap">
-    <img class="gamer" src="./assets/03-gamer-neutro.png" alt="">
-    <img class="gamer-pose" data-pose="impact" src="./assets/animation/gamer-impact.png" alt="" hidden>
-    <img class="gamer-pose" data-pose="dizzy-a" src="./assets/animation/gamer-dizzy-a.png" alt="" hidden>
-    <img class="gamer-pose" data-pose="dizzy-b" src="./assets/animation/gamer-dizzy-b.png" alt="" hidden>
-    <img class="gamer-pose" data-pose="recover" src="./assets/animation/gamer-recover.png" alt="" hidden>
-    <div class="dizzy-birds" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="face-light"></div>
-  </div>
-  <div class="screen-light"></div><div class="speech" id="speech" aria-hidden="true">...</div><div class="impact" aria-hidden="true">✷</div><div class="scene-caption"><span class="live-dot"></span> <span id="scene-caption">Só mais uma notícia…</span></div>
-</div>
-<div class="analysis-wrap shell">
-<div class="result" id="result" data-kind="idle" role="status" aria-live="polite" aria-atomic="true"><div class="result-icon" id="result-icon" aria-hidden="true">…</div><div><p class="terminal-label" aria-hidden="true">&gt; FUI TROLLADO? / RESULTADO</p><h2 id="result-title">O próximo movimento é seu.</h2><p id="result-copy">Cole um texto para começar a análise.</p><p class="probability" id="probability" hidden></p></div></div>
-<section class="analysis-card" aria-labelledby="input-title"><div class="card-top"><span class="tiny">01 / SUA VEZ</span><span class="engine"><i></i> <span id="engine-status">Conectando ao modelo</span></span></div>
-<form id="analyze-form"><label id="input-title" for="texto">O que chegou até você?</label><p class="field-help" id="field-help">Cole uma notícia ou mensagem em português. Vamos analisar os padrões do texto.</p><div class="textarea-wrap"><textarea id="texto" name="text" rows="4" maxlength="5000" minlength="20" required placeholder="Cole aqui aquele texto que te deixou com uma pulga atrás da orelha…" aria-describedby="field-help field-error"></textarea><span class="counter" id="counter">0 / 5.000</span></div>
-<div class="model-controls"><div><label for="model-select">Escolha a versão</label><select id="model-select" name="model"><option value="atual">LR + TF-IDF · baseline</option><option value="normalizado">LR normalizada · experimental</option><option value="augmentation">LR + augmentation · experimental</option><option value="normalizado_char" selected>LR normalizada + palavras e caracteres · experimental</option></select><p id="model-description" class="field-help">Combina palavras e sequências de 3 a 5 caracteres.</p></div><label class="compare-choice" for="compare-models"><input type="checkbox" id="compare-models" checked> Comparar as quatro versões</label></div>
-<div class="form-bottom"><button class="example" type="button" id="example">↳ Experimentar um exemplo</button><button class="analyze" type="submit" id="analyze-button"><span aria-hidden="true">⌕</span> <span id="button-label">Analisar texto</span><span aria-hidden="true">→</span></button></div><p id="field-error" class="field-error" role="alert"></p></form>
-<p class="disclaimer">ⓘ Análise experimental de padrões textuais. Não substitui a checagem dos fatos.</p></section>
-<section id="comparison" class="comparison" hidden aria-labelledby="comparison-title"><h3 id="comparison-title">Mesmo texto, quatro versões</h3><p>A cena acima acompanha a versão selecionada. As probabilidades são estimativas de classe, não de veracidade.</p><div class="table-scroll"><table><thead><tr><th>Versão</th><th>Estimativa não confiável</th><th>Resultado</th></tr></thead><tbody id="comparison-body"></tbody></table></div><p id="coverage-note" class="field-help"></p></section>
-<details class="study-results"><summary>Como as versões se saíram nos testes?</summary><p>927 textos de desenvolvimento · 5 folds externos · calibração Platt dentro do treino. Holdout excluído. Diferenças pequenas não demonstram superioridade.</p><div class="table-scroll"><table><thead><tr><th>Versão</th><th>F1 NC ↑</th><th>Brier ↓</th><th>Variação entre grafias ↓</th></tr></thead><tbody id="study-body"></tbody></table></div><p>F1: média ± desvio entre folds, com limiar 0,5 e sem abstenção. Brier: erro das probabilidades. Variação: mudança média em pontos percentuais ao unir/separar letras e números nos textos de avaliação. Zero indica estabilidade, não acerto.</p><p>Abstenção em todas as versões: estimativa entre 12,5% e 87,5%. Os novos modelos são experimentais; nenhum consulta evidências sobre o acontecimento.</p></details>
-<details class="preview"><summary>Explorar as animações <span>PRÉVIA VISUAL</span></summary><p>Estes botões simulam a cena. Não executam uma análise do texto.</p><div class="preview-buttons"><button data-preview="idle">Em espera</button><button data-preview="credible">Confiável</button><button data-preview="not_credible">Troll apareceu!</button><button data-preview="abster">Inconclusivo</button></div></details></div></section>
-<section class="team shell" id="equipe" aria-labelledby="team-title"><div class="section-heading"><span class="tiny">02 / QUEM ESTÁ NO CONTROLE</span><h2 id="team-title">Nosso squad<span>_</span></h2><p>Sete pessoas. Uma pergunta: como a IA pode ajudar a ler com mais atenção?</p></div><div class="team-grid">
-<article class="member"><div class="avatar avatar-photo a1" aria-hidden="true">NB<img src="https://github.com/nkborba.png?size=216" alt="" width="108" height="108" loading="lazy" decoding="async" referrerpolicy="no-referrer"></div><h3>nkborba</h3><p class="member-links"><a href="https://github.com/nkborba" target="_blank" rel="noopener noreferrer" aria-label="GitHub de nkborba (abre em nova aba)">GitHub ↗</a><a href="https://www.linkedin.com/in/nicholasborba/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de nkborba (abre em nova aba)">LinkedIn ↗</a></p></article>
-<article class="member"><div class="avatar avatar-photo a2" aria-hidden="true">RF<img src="https://github.com/RaphaelBellagamaFerracioli.png?size=216" alt="" width="108" height="108" loading="lazy" decoding="async" referrerpolicy="no-referrer"></div><h3>RaphaelBellagamaFerracioli</h3><p class="member-links"><a href="https://github.com/RaphaelBellagamaFerracioli" target="_blank" rel="noopener noreferrer" aria-label="GitHub de RaphaelBellagamaFerracioli (abre em nova aba)">GitHub ↗</a><a href="https://www.linkedin.com/in/raphael-bellagama-5119b7204/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de RaphaelBellagamaFerracioli (abre em nova aba)">LinkedIn ↗</a></p></article>
-<article class="member"><div class="avatar avatar-photo a3" aria-hidden="true">VS<img src="https://github.com/ViniSaraujo.png?size=216" alt="" width="108" height="108" loading="lazy" decoding="async" referrerpolicy="no-referrer"></div><h3>ViniSaraujo</h3><p class="member-links"><a href="https://github.com/ViniSaraujo" target="_blank" rel="noopener noreferrer" aria-label="GitHub de ViniSaraujo (abre em nova aba)">GitHub ↗</a><span>LinkedIn</span></p></article>
-<article class="member"><div class="avatar avatar-photo a4" aria-hidden="true">DB<img src="https://github.com/diogobertozi.png?size=216" alt="" width="108" height="108" loading="lazy" decoding="async" referrerpolicy="no-referrer"></div><h3>diogobertozi</h3><p class="member-links"><a href="https://github.com/diogobertozi" target="_blank" rel="noopener noreferrer" aria-label="GitHub de diogobertozi (abre em nova aba)">GitHub ↗</a><a href="https://www.linkedin.com/in/diogo-bertozi/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de diogobertozi (abre em nova aba)">LinkedIn ↗</a></p></article>
-<article class="member"><div class="avatar a5" aria-hidden="true">M</div><h3>Michael</h3><p class="member-links"><span>Data Hunters</span><span>LinkedIn</span></p></article>
-<article class="member"><div class="avatar a6" aria-hidden="true">M</div><h3>Mariana</h3><p class="member-links"><span>Data Hunters</span><span>LinkedIn</span></p></article>
-<article class="member"><div class="avatar a1" aria-hidden="true">E</div><h3>Elias</h3><p class="member-links"><span>Data Hunters</span><span>LinkedIn</span></p></article></div></section>
-<section class="about shell" id="sobre" aria-labelledby="about-title"><div class="about-intro"><span class="tiny">03 / ALÉM DO JOGO</span><h2 id="about-title">Menos impulso.<br>Mais pensamento <em>crítico.</em></h2><p>O Fui Trollado? nasceu de uma investigação sobre aprendizado de máquina e credibilidade de textos. A ideia é despertar uma pergunta antes do próximo compartilhamento.</p><a class="back-link" href="#texto">Vamos analisar? ↗</a></div><div class="about-details"><article><span class="number">01</span><div><h3>O texto vira informação</h3><p>TF-IDF representa palavras e expressões. Uma Regressão Logística identifica padrões associados às classes da base estudada.</p></div></article><article><span class="number">02</span><div><h3>A dúvida também é uma resposta</h3><p>Usamos calibração Platt e abstenção. Quando a probabilidade cai na faixa de dúvida, o resultado é inconclusivo.</p></div></article><article><span class="number">03</span><div><h3>Previsão não é comprovação</h3><p>O modelo não consulta fontes nem verifica fatos. Foi avaliado por validação cruzada no corpus; seu desempenho em dados novos ainda precisa ser validado.</p></div></article></div></section></main>
-<footer class="shell"><a class="brand" href="#inicio"><span class="brand-icon">?!</span> FUI TROLLADO?</a><p>Um experimento Data Hunters · 2026</p><span class="footer-end">CONTINUE QUESTIONANDO ↗</span></footer></body></html>
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#090e20" />
+    <title>Fui Trollado? — Analise antes de compartilhar</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./scene-animation.css" />
+    <script src="./config.js"></script>
+    <script src="./scene-animation.js" defer></script>
+    <script src="./model-catalog.js"></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#texto">Pular para análise</a>
+    <header class="nav shell">
+      <a class="brand" href="#inicio"><span class="brand-icon">?!</span> DATA HUNTERS</a>
+      <nav aria-label="Navegação principal">
+        <a href="#sobre">O projeto</a><a href="#equipe">Equipe</a
+        ><span class="version">BETA 01</span>
+      </nav>
+    </header>
+    <main id="inicio">
+      <section class="hero" aria-labelledby="title">
+        <div class="room" aria-hidden="true"></div>
+        <div class="hero-heading">
+          <p class="eyebrow"><span></span> NEM TUDO É O QUE PARECE <span></span></p>
+          <h1 id="title">Fui Trollado<span>?</span></h1>
+          <p>Antes de compartilhar, dê um pause.</p>
+        </div>
+        <div
+          class="scene"
+          id="scene"
+          data-state="idle"
+          role="img"
+          aria-label="Quarto em pixel art com um gamer diante do computador"
+        >
+          <div class="portal-wrap"><img class="portal" src="./assets/05-portal.png" alt="" /></div>
+          <div class="troll-actor" aria-hidden="true">
+            <img
+              class="troll-pose"
+              data-pose="enter"
+              src="./assets/animation/troll-enter.png"
+              alt=""
+              hidden
+            />
+            <img
+              class="troll-pose"
+              data-pose="prepare"
+              src="./assets/animation/troll-prepare.png"
+              alt=""
+              hidden
+            />
+            <img
+              class="troll-pose"
+              data-pose="strike"
+              src="./assets/animation/troll-strike.png"
+              alt=""
+              hidden
+            />
+            <img
+              class="troll-pose"
+              data-pose="recover"
+              src="./assets/animation/troll-recover.png"
+              alt=""
+              hidden
+            />
+          </div>
+          <img class="desk" src="./assets/02-estacao-gamer.png" alt="" />
+          <div class="gamer-wrap">
+            <img class="gamer" src="./assets/03-gamer-neutro.png" alt="" />
+            <img
+              class="gamer-pose"
+              data-pose="impact"
+              src="./assets/animation/gamer-impact.png"
+              alt=""
+              hidden
+            />
+            <img
+              class="gamer-pose"
+              data-pose="dizzy-a"
+              src="./assets/animation/gamer-dizzy-a.png"
+              alt=""
+              hidden
+            />
+            <img
+              class="gamer-pose"
+              data-pose="dizzy-b"
+              src="./assets/animation/gamer-dizzy-b.png"
+              alt=""
+              hidden
+            />
+            <img
+              class="gamer-pose"
+              data-pose="recover"
+              src="./assets/animation/gamer-recover.png"
+              alt=""
+              hidden
+            />
+            <div class="dizzy-birds" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="face-light"></div>
+          </div>
+          <div class="screen-light"></div>
+          <div class="speech" id="speech" aria-hidden="true">...</div>
+          <div class="impact" aria-hidden="true">✷</div>
+          <div class="scene-caption">
+            <span class="live-dot"></span> <span id="scene-caption">Só mais uma notícia…</span>
+          </div>
+        </div>
+        <div class="analysis-wrap shell">
+          <div
+            class="result"
+            id="result"
+            data-kind="idle"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <div class="result-icon" id="result-icon" aria-hidden="true">…</div>
+            <div>
+              <p class="terminal-label" aria-hidden="true">&gt; FUI TROLLADO? / RESULTADO</p>
+              <h2 id="result-title">O próximo movimento é seu.</h2>
+              <p id="result-copy">Cole um texto para começar a análise.</p>
+              <p class="probability" id="probability" hidden></p>
+            </div>
+          </div>
+          <section class="analysis-card" aria-labelledby="input-title">
+            <div class="card-top">
+              <span class="tiny">01 / SUA VEZ</span
+              ><span class="engine"
+                ><i></i> <span id="engine-status">Conectando ao modelo</span></span
+              >
+            </div>
+            <form id="analyze-form">
+              <label id="input-title" for="texto">O que chegou até você?</label>
+              <p class="field-help" id="field-help">
+                Cole uma notícia ou mensagem em português. Vamos analisar os padrões do texto.
+              </p>
+              <div class="textarea-wrap">
+                <textarea
+                  id="texto"
+                  name="text"
+                  rows="4"
+                  maxlength="5000"
+                  minlength="20"
+                  required
+                  placeholder="Cole aqui aquele texto que te deixou com uma pulga atrás da orelha…"
+                  aria-describedby="field-help field-error"
+                ></textarea
+                ><span class="counter" id="counter">0 / 5.000</span>
+              </div>
+              <div class="model-controls">
+                <div>
+                  <label for="model-select">Escolha a versão</label
+                  ><select id="model-select" name="model" disabled>
+                    <option value="">Carregando modelos…</option>
+                  </select>
+                  <p id="model-description" class="field-help">Carregando descrição…</p>
+                  <button type="button" id="retry-models" hidden>Tentar conectar novamente</button>
+                </div>
+                <label class="compare-choice" for="compare-models"
+                  ><input type="checkbox" id="compare-models" checked /> Comparar modelos
+                  disponíveis</label
+                >
+              </div>
+              <div class="form-bottom">
+                <button class="example" type="button" id="example">↳ Experimentar um exemplo</button
+                ><button class="analyze" type="submit" id="analyze-button">
+                  <span aria-hidden="true">⌕</span> <span id="button-label">Analisar texto</span
+                  ><span aria-hidden="true">→</span>
+                </button>
+              </div>
+              <p id="field-error" class="field-error" role="alert"></p>
+            </form>
+            <p class="disclaimer">
+              ⓘ Análise experimental de padrões textuais. Não substitui a checagem dos fatos.
+            </p>
+          </section>
+          <section id="comparison" class="comparison" hidden aria-labelledby="comparison-title">
+            <h3 id="comparison-title">Mesmo texto, modelos diferentes</h3>
+            <p>
+              A cena acima acompanha a versão selecionada. As probabilidades são estimativas de
+              classe, não de veracidade.
+            </p>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Versão</th>
+                    <th>Estimativa não confiável</th>
+                    <th>Resultado</th>
+                  </tr>
+                </thead>
+                <tbody id="comparison-body"></tbody>
+              </table>
+            </div>
+            <p id="coverage-note" class="field-help"></p>
+          </section>
+          <details class="study-results">
+            <summary>Como as versões se saíram nos testes?</summary>
+            <p>
+              Consulte a avaliação de cada modelo. Resultados de bases ou divisões diferentes não
+              são diretamente comparáveis. Diferenças pequenas não demonstram superioridade.
+            </p>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Versão</th>
+                    <th>F1 NC ↑</th>
+                    <th>Brier ↓</th>
+                    <th>Variação entre grafias ↓</th>
+                    <th>Avaliação</th>
+                  </tr>
+                </thead>
+                <tbody id="study-body"></tbody>
+              </table>
+            </div>
+            <p>
+              F1: média ± desvio entre folds, com limiar 0,5 e sem abstenção. Brier: erro das
+              probabilidades. Variação: mudança média em pontos percentuais ao unir/separar letras e
+              números nos textos de avaliação. Zero indica estabilidade, não acerto.
+            </p>
+            <p>
+              A faixa de abstenção aparece na descrição do modelo selecionado. Métricas ausentes
+              aparecem como um traço. Os modelos classificam padrões textuais e não verificam o
+              acontecimento.
+            </p>
+          </details>
+          <details class="preview">
+            <summary>Explorar as animações <span>PRÉVIA VISUAL</span></summary>
+            <p>Estes botões simulam a cena. Não executam uma análise do texto.</p>
+            <div class="preview-buttons">
+              <button data-preview="idle">Em espera</button
+              ><button data-preview="credible">Confiável</button
+              ><button data-preview="not_credible">Troll apareceu!</button
+              ><button data-preview="abster">Inconclusivo</button>
+            </div>
+          </details>
+        </div>
+      </section>
+      <section class="team shell" id="equipe" aria-labelledby="team-title">
+        <div class="section-heading">
+          <span class="tiny">02 / QUEM ESTÁ NO CONTROLE</span>
+          <h2 id="team-title">Nosso squad<span>_</span></h2>
+          <p>Sete pessoas. Uma pergunta: como a IA pode ajudar a ler com mais atenção?</p>
+        </div>
+        <div class="team-grid">
+          <article class="member">
+            <div class="avatar avatar-photo a1" aria-hidden="true">
+              NB<img
+                src="https://github.com/nkborba.png?size=216"
+                alt=""
+                width="108"
+                height="108"
+                loading="lazy"
+                decoding="async"
+                referrerpolicy="no-referrer"
+              />
+            </div>
+            <h3>nkborba</h3>
+            <p class="member-links">
+              <a
+                href="https://github.com/nkborba"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub de nkborba (abre em nova aba)"
+                >GitHub ↗</a
+              ><a
+                href="https://www.linkedin.com/in/nicholasborba/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn de nkborba (abre em nova aba)"
+                >LinkedIn ↗</a
+              >
+            </p>
+          </article>
+          <article class="member">
+            <div class="avatar avatar-photo a2" aria-hidden="true">
+              RF<img
+                src="https://github.com/RaphaelBellagamaFerracioli.png?size=216"
+                alt=""
+                width="108"
+                height="108"
+                loading="lazy"
+                decoding="async"
+                referrerpolicy="no-referrer"
+              />
+            </div>
+            <h3>RaphaelBellagamaFerracioli</h3>
+            <p class="member-links">
+              <a
+                href="https://github.com/RaphaelBellagamaFerracioli"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub de RaphaelBellagamaFerracioli (abre em nova aba)"
+                >GitHub ↗</a
+              ><a
+                href="https://www.linkedin.com/in/raphael-bellagama-5119b7204/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn de RaphaelBellagamaFerracioli (abre em nova aba)"
+                >LinkedIn ↗</a
+              >
+            </p>
+          </article>
+          <article class="member">
+            <div class="avatar avatar-photo a3" aria-hidden="true">
+              VS<img
+                src="https://github.com/ViniSaraujo.png?size=216"
+                alt=""
+                width="108"
+                height="108"
+                loading="lazy"
+                decoding="async"
+                referrerpolicy="no-referrer"
+              />
+            </div>
+            <h3>ViniSaraujo</h3>
+            <p class="member-links">
+              <a
+                href="https://github.com/ViniSaraujo"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub de ViniSaraujo (abre em nova aba)"
+                >GitHub ↗</a
+              ><span>LinkedIn</span>
+            </p>
+          </article>
+          <article class="member">
+            <div class="avatar avatar-photo a4" aria-hidden="true">
+              DB<img
+                src="https://github.com/diogobertozi.png?size=216"
+                alt=""
+                width="108"
+                height="108"
+                loading="lazy"
+                decoding="async"
+                referrerpolicy="no-referrer"
+              />
+            </div>
+            <h3>diogobertozi</h3>
+            <p class="member-links">
+              <a
+                href="https://github.com/diogobertozi"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub de diogobertozi (abre em nova aba)"
+                >GitHub ↗</a
+              ><a
+                href="https://www.linkedin.com/in/diogo-bertozi/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn de diogobertozi (abre em nova aba)"
+                >LinkedIn ↗</a
+              >
+            </p>
+          </article>
+          <article class="member">
+            <div class="avatar a5" aria-hidden="true">M</div>
+            <h3>Michael</h3>
+            <p class="member-links"><span>Data Hunters</span><span>LinkedIn</span></p>
+          </article>
+          <article class="member">
+            <div class="avatar a6" aria-hidden="true">M</div>
+            <h3>Mariana</h3>
+            <p class="member-links"><span>Data Hunters</span><span>LinkedIn</span></p>
+          </article>
+          <article class="member">
+            <div class="avatar a1" aria-hidden="true">E</div>
+            <h3>Elias</h3>
+            <p class="member-links"><span>Data Hunters</span><span>LinkedIn</span></p>
+          </article>
+        </div>
+      </section>
+      <section class="about shell" id="sobre" aria-labelledby="about-title">
+        <div class="about-intro">
+          <span class="tiny">03 / ALÉM DO JOGO</span>
+          <h2 id="about-title">Menos impulso.<br />Mais pensamento <em>crítico.</em></h2>
+          <p>
+            O Fui Trollado? nasceu de uma investigação sobre aprendizado de máquina e credibilidade
+            de textos. A ideia é despertar uma pergunta antes do próximo compartilhamento.
+          </p>
+          <a class="back-link" href="#texto">Vamos analisar? ↗</a>
+        </div>
+        <div class="about-details">
+          <article>
+            <span class="number">01</span>
+            <div>
+              <h3>O texto vira informação</h3>
+              <p>
+                TF-IDF representa palavras e expressões. O modelo selecionado identifica padrões
+                associados às classes da base em que foi treinado.
+              </p>
+            </div>
+          </article>
+          <article>
+            <span class="number">02</span>
+            <div>
+              <h3>A dúvida também é uma resposta</h3>
+              <p>
+                As versões de LR usam calibração Platt. Cada modelo tem sua regra de abstenção.
+                Quando a probabilidade cai na faixa de dúvida, o resultado é inconclusivo.
+              </p>
+            </div>
+          </article>
+          <article>
+            <span class="number">03</span>
+            <div>
+              <h3>Previsão não é comprovação</h3>
+              <p>
+                O modelo não consulta fontes nem verifica fatos. Foi avaliado por validação cruzada
+                no corpus; seu desempenho em dados novos ainda precisa ser validado.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer class="shell">
+      <a class="brand" href="#inicio"><span class="brand-icon">?!</span> FUI TROLLADO?</a>
+      <p>Um experimento Data Hunters · 2026</p>
+      <span class="footer-end">CONTINUE QUESTIONANDO ↗</span>
+    </footer>
+  </body>
+</html>
