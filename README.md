@@ -43,7 +43,11 @@ Na preparação deste repo, os estimadores foram extraídos dos artefatos origin
 
 O relatório e protocolo são cópias do estudo original; referências a scripts e resultados detalhados pertencem à pasta dos estudos, que não faz parte deste repo. Aqui entram os resultados por fold e o necessário para inferência. Não carregue arquivos joblib de origem desconhecida.
 
-## Hospedagem recomendada: Render
+## Heroku
+
+O projeto também está preparado para o Heroku. Veja o passo a passo em [HEROKU.md](HEROKU.md). O `Procfile` inicia o site e os quatro modelos no mesmo serviço; `.python-version` seleciona Python 3.12.
+
+## Alternativa: Render
 
 O GitHub Pages não executa Python. Para publicar tudo junto, recomendo um **Web Service no Render, plano Free**. O `render.yaml` já está pronto:
 
