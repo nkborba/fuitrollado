@@ -1,6 +1,6 @@
 /* Uma linha do tempo para os dois personagens; nenhuma alteração na classificação. */
 // Espera depois que o portal abre: 1000 = 1 segundo; 2000 = 2 segundos.
-const PORTAL_PAUSE_MS = 1000;
+const PORTAL_PAUSE_MS = 1250;
 
 function createTrollSequence(scene) {
   const motion = matchMedia('(prefers-reduced-motion: reduce)');

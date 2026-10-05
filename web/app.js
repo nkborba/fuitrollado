@@ -52,6 +52,9 @@ const states = {
 };
 function showState(kind, data = {}, preview = false) {
   const s = states[kind] || states.error;
+  const result = $('result');
+  // Reinicia a abertura mesmo quando repetimos a mesma classificação.
+  result.removeAttribute('data-reveal');
   scene.dataset.state = kind;
   trollSequence.setState(kind);
   $('speech').textContent = s.speech;
@@ -64,6 +67,10 @@ function showState(kind, data = {}, preview = false) {
   $('probability').hidden = preview || typeof p !== 'number';
   $('probability').textContent = typeof p === 'number' ? `Estimativa para a classe “não confiável”: ${(p * 100).toLocaleString('pt-BR', {minimumFractionDigits:2,maximumFractionDigits:2})}%` : '';
   scene.setAttribute('aria-label', `Quarto do gamer. ${s.caption}`);
+  if (kind !== 'idle') {
+    void result.offsetWidth;
+    result.dataset.reveal = 'opening';
+  }
 }
 $('texto').addEventListener('input', () => {
   $('counter').textContent = `${$('texto').value.length.toLocaleString('pt-BR')} / 5.000`;
