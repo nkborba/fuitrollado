@@ -31,10 +31,16 @@ estão em `troll-recover-corrigido.png` e `CORRECAO-MARRETA.md`.
 | Tempo | Troll | Gamer |
 | --- | --- | --- |
 | 0 ms | Portal abre | Neutro |
-| 450 ms | Aparece diante do portal em 250 ms, sem deslocamento lateral ou mudança de escala | Neutro |
-| 1200 ms | Prepara a marreta | Neutro |
-| 1900 ms | Golpe e brilho de impacto | Olho fechado |
-| 2100 ms em diante | Marreta abaixada, portal aberto | Confuso, passarinhos circulando continuamente |
+| 450–1450 ms | Portal aberto, pausa de um segundo antes do troll | Neutro |
+| 1450 ms | Aparece diante do portal em 250 ms, sem deslocamento lateral ou mudança de escala | Neutro |
+| 2200 ms | Prepara a marreta | Neutro |
+| 2900 ms | Golpe e brilho de impacto | Olho fechado |
+| 3100 ms em diante | Marreta abaixada, portal aberto | Confuso, passarinhos circulando continuamente |
+
+Para mudar a espera, edite `PORTAL_PAUSE_MS` no início de
+`web/scene-animation.js`: `500` = meio segundo, `1000` = um segundo,
+`2000` = dois segundos. Salve e recarregue o site. Os demais eventos acompanham
+essa mudança automaticamente, preservando o sincronismo do impacto.
 
 `scene-animation.js` controla ambos os personagens no mesmo callback de
 `requestAnimationFrame`. Cada mudança de estado cancela o callback e invalida

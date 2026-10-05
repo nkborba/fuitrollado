@@ -31,15 +31,16 @@ function setup({reduced = false, decoding = Promise.resolve()} = {}) {
 test('impacto compartilhado e tontura persistente sem callbacks ociosos', async () => {
   const s = setup(); await s.controller.setState('not_credible');
   for (const [at, phase, poses] of [
-    [0,'portal',['enter']], [450,'enter',['enter']], [1200,'prepare',['prepare']],
-    [1900,'strike',['strike','impact']], [2100,'dizzy',['recover','dizzy-a']],
+    [0,'portal',['enter']], [450,'portal',['enter']], [1449,'portal',['enter']],
+    [1450,'enter',['enter']], [2200,'prepare',['prepare']],
+    [2900,'strike',['strike','impact']], [3100,'dizzy',['recover','dizzy-a']],
     [4700,'dizzy',['recover','dizzy-a']], [60000,'dizzy',['recover','dizzy-a']],
   ]) {s.step(at); assert.equal(s.scene.dataset.phase,phase); assert.deepEqual(s.visible(),poses);}
   assert.equal(s.jobs.size,0);
 });
 
 test('passarinhos retomam ao voltar à aba ou desativar movimento reduzido', async () => {
-  const s = setup(); await s.controller.setState('not_credible'); s.step(2100);
+  const s = setup(); await s.controller.setState('not_credible'); s.step(3100);
   s.hide(); assert.equal(s.scene.dataset.phase,'still');
   s.show(); assert.equal(s.scene.dataset.phase,'dizzy');
   s.reduce(true); assert.equal(s.scene.dataset.phase,'still');
@@ -58,7 +59,7 @@ test('somente a classe não confiável inicia a sequência', async () => {
 });
 
 test('interromper qualquer fase cancela todos os callbacks antigos', async () => {
-  for (const at of [0,500,1250,1950,2700,4200,4800]) {
+  for (const at of [0,500,1250,1500,2250,2950,3700,4800]) {
     const s = setup(); await s.controller.setState('not_credible'); s.step(at);
     await s.controller.setState('loading'); s.step(10000);
     assert.equal(s.scene.dataset.phase,'idle'); assert.deepEqual(s.visible(),['enter']);
@@ -67,10 +68,10 @@ test('interromper qualquer fase cancela todos os callbacks antigos', async () =>
 });
 
 test('repetição do mesmo resultado reinicia no portal com gamer neutro', async () => {
-  const s = setup(); await s.controller.setState('not_credible'); s.step(2700);
-  await s.controller.setState('not_credible'); s.step(2700);
+  const s = setup(); await s.controller.setState('not_credible'); s.step(3700);
+  await s.controller.setState('not_credible'); s.step(3700);
   assert.equal(s.scene.dataset.phase,'portal'); assert.deepEqual(s.visible(),['enter']);
-  s.step(4600); assert.deepEqual(s.visible(),['strike','impact']);
+  s.step(6600); assert.deepEqual(s.visible(),['strike','impact']);
 });
 
 test('mudança de estado enquanto imagens decodificam não ressuscita sequência', async () => {
@@ -85,7 +86,7 @@ test('movimento reduzido inicial, mudança durante execução e aba oculta', asy
   assert.equal(reduced.scene.dataset.phase,'still'); assert.equal(reduced.jobs.size,0);
   assert.deepEqual(reduced.visible(),['recover','dizzy-a']);
   for (const action of [s => s.reduce(true), s => s.hide()]) {
-    const s = setup(); await s.controller.setState('not_credible'); s.step(1900); action(s);
+    const s = setup(); await s.controller.setState('not_credible'); s.step(2900); action(s);
     s.step(9000); assert.equal(s.scene.dataset.phase,'still'); assert.equal(s.jobs.size,0);
     await s.controller.setState('idle'); assert.equal(s.scene.dataset.phase,'idle');
   }

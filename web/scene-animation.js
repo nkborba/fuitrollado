@@ -1,4 +1,7 @@
 /* Uma linha do tempo para os dois personagens; nenhuma alteração na classificação. */
+// Espera depois que o portal abre: 1000 = 1 segundo; 2000 = 2 segundos.
+const PORTAL_PAUSE_MS = 1000;
+
 function createTrollSequence(scene) {
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const frames = [...scene.querySelectorAll('[data-pose]')];
@@ -6,12 +9,13 @@ function createTrollSequence(scene) {
   let generation = 0;
   let request = 0;
   let active = false;
+  const trollAppearsAt = 450 + PORTAL_PAUSE_MS;
   const timeline = [
     [0, 'portal', 'enter', 'neutral'],
-    [450, 'enter', 'enter', 'neutral'],
-    [1200, 'prepare', 'prepare', 'neutral'],
-    [1900, 'strike', 'strike', 'impact'],
-    [2100, 'dizzy', 'recover', 'dizzy-a'],
+    [trollAppearsAt, 'enter', 'enter', 'neutral'],
+    [trollAppearsAt + 750, 'prepare', 'prepare', 'neutral'],
+    [trollAppearsAt + 1450, 'strike', 'strike', 'impact'],
+    [trollAppearsAt + 1650, 'dizzy', 'recover', 'dizzy-a'],
   ];
   function paint(phase, troll, gamer) {
     scene.dataset.phase = phase;
