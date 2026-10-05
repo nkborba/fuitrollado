@@ -20,7 +20,11 @@ RGBA na tela original de 1024 × 1536. A cabeça, o corpo, a cadeira e as mãos
 continuam sendo os pixels do sprite neutro. Os passarinhos são um SVG em pixel art
 com órbita elíptica e asas animadas em CSS, sem GIF e sem temporizadores contínuos
 em JavaScript. O reflexo da tela continua acima das expressões e mantém sua
-máscara original. Não houve nova geração de imagens.
+máscara original. A cabeça da marreta na pose final recebeu uma correção local
+com a ferramenta integrada de imagens: agora o cabo entra na lateral da cabeça,
+formando um T. O script aplica uma máscara somente na região da marreta e
+preserva os pixels do corpo, da mão e das botas. A imagem editada e o prompt
+estão em `troll-recover-corrigido.png` e `CORRECAO-MARRETA.md`.
 
 ## Linha do tempo
 
