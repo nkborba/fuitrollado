@@ -1,0 +1,290 @@
+{
+  "run": "20261004T132959Z",
+  "dataset_sha256": "df8cd69fbafb9c4e1960637ae2c58bba791d695f410a625ca7e4f628687fc7cc",
+  "n_dev": 927,
+  "n_holdout_excluded": 103,
+  "outer_folds": 5,
+  "inner_calibration_folds": 5,
+  "delta": 0.375,
+  "models": {
+    "atual": {
+      "name": "LR atual",
+      "description": "TF-IDF de palavras. Artefato original do estudo 09.",
+      "metrics": {
+        "f1_nc": {
+          "mean": 0.8987965574536274,
+          "std": 0.038915212297229704
+        },
+        "f1_macro": {
+          "mean": 0.9046530258634627,
+          "std": 0.03575938434234439
+        },
+        "balanced_accuracy": {
+          "mean": 0.9043586847036236,
+          "std": 0.03616875810548332
+        },
+        "brier": {
+          "mean": 0.07811757237478291,
+          "std": 0.019405181173593137
+        },
+        "coverage": {
+          "mean": 0.7217204301075268,
+          "std": 0.039528888920087685
+        },
+        "selective_accuracy": {
+          "mean": 0.9533479610831893,
+          "std": 0.029212553385134066
+        },
+        "raw_f1_nc": {
+          "mean": 0.8939528233897294,
+          "std": 0.042443863687329365
+        },
+        "raw_brier": {
+          "mean": 0.12255261005981036,
+          "std": 0.00609964280184336
+        }
+      },
+      "robustness": {
+        "n_pairs": 497,
+        "mean_probability_change": 0.05400041448166238,
+        "binary_flip_rate": 0.052313883299798795,
+        "decision_flip_rate": 0.11468812877263582
+      },
+      "oof_confusion_matrix": [
+        [
+          446,
+          40
+        ],
+        [
+          48,
+          393
+        ]
+      ]
+    },
+    "normalizado": {
+      "name": "LR normalizada",
+      "description": "Padroniza a escrita e preserva os números no TF-IDF de palavras.",
+      "metrics": {
+        "f1_nc": {
+          "mean": 0.8898452646465957,
+          "std": 0.03359497566934927
+        },
+        "f1_macro": {
+          "mean": 0.8960225945265584,
+          "std": 0.03064351696480245
+        },
+        "balanced_accuracy": {
+          "mean": 0.8957383428819862,
+          "std": 0.030832390809718387
+        },
+        "brier": {
+          "mean": 0.07946746130557696,
+          "std": 0.0181305817035003
+        },
+        "coverage": {
+          "mean": 0.7141470502760826,
+          "std": 0.0403064701250335
+        },
+        "selective_accuracy": {
+          "mean": 0.9603758773109679,
+          "std": 0.02715200744361364
+        },
+        "raw_f1_nc": {
+          "mean": 0.8882941274378634,
+          "std": 0.03476279120931527
+        },
+        "raw_brier": {
+          "mean": 0.12231879399461953,
+          "std": 0.006219349802995407
+        }
+      },
+      "robustness": {
+        "n_pairs": 497,
+        "mean_probability_change": 0.0,
+        "binary_flip_rate": 0.0,
+        "decision_flip_rate": 0.0
+      },
+      "oof_confusion_matrix": [
+        [
+          442,
+          44
+        ],
+        [
+          52,
+          389
+        ]
+      ]
+    },
+    "augmentation": {
+      "name": "LR + augmentation",
+      "description": "Aprende com variações controladas de escrita no treino.",
+      "metrics": {
+        "f1_nc": {
+          "mean": 0.898716503548604,
+          "std": 0.040148144919799816
+        },
+        "f1_macro": {
+          "mean": 0.904633457833061,
+          "std": 0.03666609183171468
+        },
+        "balanced_accuracy": {
+          "mean": 0.9043481650318373,
+          "std": 0.037133777532047774
+        },
+        "brier": {
+          "mean": 0.07799993231885458,
+          "std": 0.019311428008444216
+        },
+        "coverage": {
+          "mean": 0.7217204301075268,
+          "std": 0.0391575618707274
+        },
+        "selective_accuracy": {
+          "mean": 0.951583029196188,
+          "std": 0.024330906703289603
+        },
+        "raw_f1_nc": {
+          "mean": 0.8941544502622264,
+          "std": 0.039004669831103116
+        },
+        "raw_brier": {
+          "mean": 0.12290510650274597,
+          "std": 0.0060522925760821975
+        }
+      },
+      "robustness": {
+        "n_pairs": 497,
+        "mean_probability_change": 0.04107048871401514,
+        "binary_flip_rate": 0.04225352112676056,
+        "decision_flip_rate": 0.096579476861167
+      },
+      "oof_confusion_matrix": [
+        [
+          446,
+          40
+        ],
+        [
+          48,
+          393
+        ]
+      ]
+    },
+    "normalizado_char": {
+      "name": "LR normalizada + palavras e caracteres",
+      "description": "Combina palavras e sequências de 3 a 5 caracteres.",
+      "metrics": {
+        "f1_nc": {
+          "mean": 0.8997549815839134,
+          "std": 0.038508642795791345
+        },
+        "f1_macro": {
+          "mean": 0.9047660927817314,
+          "std": 0.035749876000781264
+        },
+        "balanced_accuracy": {
+          "mean": 0.9047005283690511,
+          "std": 0.03585720937882389
+        },
+        "brier": {
+          "mean": 0.07306518642689384,
+          "std": 0.021149070664524646
+        },
+        "coverage": {
+          "mean": 0.7454286544609126,
+          "std": 0.03132329252089297
+        },
+        "selective_accuracy": {
+          "mean": 0.9644121583654034,
+          "std": 0.025947272458108357
+        },
+        "raw_f1_nc": {
+          "mean": 0.8967815556151765,
+          "std": 0.04052025759147947
+        },
+        "raw_brier": {
+          "mean": 0.12331274900103291,
+          "std": 0.005988038486201383
+        }
+      },
+      "robustness": {
+        "n_pairs": 497,
+        "mean_probability_change": 0.0,
+        "binary_flip_rate": 0.0,
+        "decision_flip_rate": 0.0
+      },
+      "oof_confusion_matrix": [
+        [
+          443,
+          43
+        ],
+        [
+          45,
+          396
+        ]
+      ]
+    }
+  },
+  "probes": {
+    "atual": [
+      {
+        "text": "O governo brasileiro proibiu GTA6.",
+        "probability": 0.371654127043739,
+        "label": "abster"
+      },
+      {
+        "text": "O governo brasileiro proibiu GTA 6.",
+        "probability": 0.10747768057767355,
+        "label": "credible"
+      }
+    ],
+    "normalizado": [
+      {
+        "text": "O governo brasileiro proibiu GTA6.",
+        "probability": 0.03892987852764272,
+        "label": "credible"
+      },
+      {
+        "text": "O governo brasileiro proibiu GTA 6.",
+        "probability": 0.03892987852764272,
+        "label": "credible"
+      }
+    ],
+    "augmentation": [
+      {
+        "text": "O governo brasileiro proibiu GTA6.",
+        "probability": 0.29829745432798493,
+        "label": "abster"
+      },
+      {
+        "text": "O governo brasileiro proibiu GTA 6.",
+        "probability": 0.12529881432414056,
+        "label": "abster"
+      }
+    ],
+    "normalizado_char": [
+      {
+        "text": "O governo brasileiro proibiu GTA6.",
+        "probability": 0.13834871765460716,
+        "label": "abster"
+      },
+      {
+        "text": "O governo brasileiro proibiu GTA 6.",
+        "probability": 0.13834871765460716,
+        "label": "abster"
+      }
+    ]
+  },
+  "artifacts": {
+    "atual": "atual.joblib",
+    "normalizado": "normalizado.joblib",
+    "augmentation": "augmentation.joblib",
+    "normalizado_char": "normalizado_char.joblib"
+  },
+  "runtime_versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.8.0",
+    "joblib": "1.6.0",
+    "threadpoolctl": "3.7.0"
+  }
+}

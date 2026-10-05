@@ -1,0 +1,122 @@
+[
+  {
+    "model": "atual",
+    "text": "O governo brasileiro proibiu GTA6.",
+    "probability": 0.371654127043739
+  },
+  {
+    "model": "atual",
+    "text": "O governo brasileiro proibiu GTA 6.",
+    "probability": 0.10747768057767355
+  },
+  {
+    "model": "atual",
+    "text": "O governo NÃO proibiu GTA 6.",
+    "probability": 0.03545186676147548
+  },
+  {
+    "model": "atual",
+    "text": "Em 10/12/2026, GTA6 custará 3,5 milhões.",
+    "probability": 0.09214325545002745
+  },
+  {
+    "model": "atual",
+    "text": "ＧＴＡ６ anúncio “oficial”.",
+    "probability": 0.973435621109146
+  },
+  {
+    "model": "atual",
+    "text": "Roblox está dando Robux grátis para quem compartilhar o link com 10 amigos no WhatsApp.",
+    "probability": 0.9873281813525926
+  },
+  {
+    "model": "normalizado",
+    "text": "O governo brasileiro proibiu GTA6.",
+    "probability": 0.03892987852764272
+  },
+  {
+    "model": "normalizado",
+    "text": "O governo brasileiro proibiu GTA 6.",
+    "probability": 0.03892987852764272
+  },
+  {
+    "model": "normalizado",
+    "text": "O governo NÃO proibiu GTA 6.",
+    "probability": 0.013517639306503291
+  },
+  {
+    "model": "normalizado",
+    "text": "Em 10/12/2026, GTA6 custará 3,5 milhões.",
+    "probability": 0.013740437192244418
+  },
+  {
+    "model": "normalizado",
+    "text": "ＧＴＡ６ anúncio “oficial”.",
+    "probability": 0.46743251383741324
+  },
+  {
+    "model": "normalizado",
+    "text": "Roblox está dando Robux grátis para quem compartilhar o link com 10 amigos no WhatsApp.",
+    "probability": 0.9875207585129364
+  },
+  {
+    "model": "augmentation",
+    "text": "O governo brasileiro proibiu GTA6.",
+    "probability": 0.29829745432798493
+  },
+  {
+    "model": "augmentation",
+    "text": "O governo brasileiro proibiu GTA 6.",
+    "probability": 0.12529881432414056
+  },
+  {
+    "model": "augmentation",
+    "text": "O governo NÃO proibiu GTA 6.",
+    "probability": 0.05096864948688082
+  },
+  {
+    "model": "augmentation",
+    "text": "Em 10/12/2026, GTA6 custará 3,5 milhões.",
+    "probability": 0.13275984716830855
+  },
+  {
+    "model": "augmentation",
+    "text": "ＧＴＡ６ anúncio “oficial”.",
+    "probability": 0.9237650717479247
+  },
+  {
+    "model": "augmentation",
+    "text": "Roblox está dando Robux grátis para quem compartilhar o link com 10 amigos no WhatsApp.",
+    "probability": 0.9871976303811841
+  },
+  {
+    "model": "normalizado_char",
+    "text": "O governo brasileiro proibiu GTA6.",
+    "probability": 0.13834871765460716
+  },
+  {
+    "model": "normalizado_char",
+    "text": "O governo brasileiro proibiu GTA 6.",
+    "probability": 0.13834871765460716
+  },
+  {
+    "model": "normalizado_char",
+    "text": "O governo NÃO proibiu GTA 6.",
+    "probability": 0.06366358856297337
+  },
+  {
+    "model": "normalizado_char",
+    "text": "Em 10/12/2026, GTA6 custará 3,5 milhões.",
+    "probability": 0.014537000448716208
+  },
+  {
+    "model": "normalizado_char",
+    "text": "ＧＴＡ６ anúncio “oficial”.",
+    "probability": 0.6204219130359843
+  },
+  {
+    "model": "normalizado_char",
+    "text": "Roblox está dando Robux grátis para quem compartilhar o link com 10 amigos no WhatsApp.",
+    "probability": 0.9966226095136369
+  }
+]

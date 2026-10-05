@@ -1,0 +1,16 @@
+{
+  "n_texts": 933,
+  "holdout_used": false,
+  "max_absolute_difference": {
+    "atual": 0.0,
+    "normalizado": 0.0,
+    "augmentation": 0.0,
+    "normalizado_char": 0.0
+  },
+  "sha256": {
+    "atual.joblib": "d13156ee62a7b1b3664cd4c738f34e573b8fc040e512831e3591dd6f40de8e29",
+    "normalizado.joblib": "15f069327ab441f31d965bbb33ed8b64c620da15139eacb31e934ff09ee040d5",
+    "augmentation.joblib": "0470af9c240f6a4e390252ea2741dfc687499241dbc39e0b6a45c4cfce0dc478",
+    "normalizado_char.joblib": "764cb0623fd10569d09873d49597eb490c85261a82e05064324b071857e0ee0c"
+  }
+}
