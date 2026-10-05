@@ -1,0 +1,14 @@
+# Prompts usados
+
+## Troll
+
+Edit target: supplied green troll sprite. Create a production animation SPRITE SHEET, transparent background, 2 columns x 2 rows of equal sized cells, four full-body frames in reading order: 1 stepping forward right with mallet over shoulder; 2 anticipatory crouch lifting wooden mallet above head; 3 cartoon bonk swing toward RIGHT at head height of opponent (no opponent drawn), arms extended with mallet right; 4 recovery satisfied grin with mallet lowered. Match exactly the original green muscular troll, orange ponytail, leather fur-trimmed outfit, wooden barrel mallet with metal bands, pixel art shading and outlines. Same character size, same ground baseline and pelvis x position in each cell, fixed camera, all limbs and entire mallet contained in each cell with generous padding. Transparent gutters. No text, no numbers, no grids, no other characters, no scene. Four distinct animation keyframes, consistent proportions and outfit, crisp pixel art.
+
+## Ajuste do troll
+
+Edit this troll animation sheet: fix the grid layout ONLY. Four equal cells in a strict 2x2 grid, transparent background. All four FULL body poses must be fully inside their own cells with 8% transparent margins around each. In particular lower left swing mallet must NOT cross the vertical center line into lower right character. Reduce ALL four sprites uniformly as necessary to fit the widest swing, keep same scale and same ground baseline within each cell. Preserve four poses, exact character design, pixel art, colors, attire, original facial expressions. No other changes no text no lines. Each cell independently usable as an animation frame.
+
+## Gamer
+
+Use case: identity-preserve. Edit supplied gamer sprite into a four frame animation sprite sheet. Transparent background. Layout strict 2x2 grid equal cells, each cell contains the ENTIRE same gamer AND chair at the identical scale and identical position. Original facing left, brown spiky hair, cyan cat headset, navy hoodie cyan cat back emblem, purple gaming chair, hands forward. Keep chair wheels, legs, hands and torso completely unchanged between frames. Change ONLY facial expression and tiny head tilt. Reading order: frame1 eyes tightly shut moment of harmless cartoon bonk, frame2 dizzy spiral visible eye head tilted slightly left with three tiny yellow pixel stars over hair, frame3 dizzy spiral eye head tilted slightly right stars in different orbital positions, frame4 eyes half-open dazed recovery with one small star. Match source detailed crisp retro pixel art exactly. No troll no desk no backdrop no words no gridlines. Generous transparent margins around each entire character. All four characters fully contained within their equal cells, no overlapping cell edges, same baseline. Canvas portrait 1024x1536.
+

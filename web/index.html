@@ -1,8 +1,27 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090e20"><title>Fui Trollado? — Analise antes de compartilhar</title><link rel="stylesheet" href="./style.css"><script src="./config.js"></script><script src="./app.js" defer></script></head><body>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090e20"><title>Fui Trollado? — Analise antes de compartilhar</title><link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="./scene-animation.css"><script src="./config.js"></script><script src="./scene-animation.js" defer></script><script src="./app.js" defer></script></head><body>
 <a class="skip" href="#texto">Pular para análise</a>
 <header class="nav shell"><a class="brand" href="#inicio"><span class="brand-icon">?!</span> DATA HUNTERS</a><nav aria-label="Navegação principal"><a href="#sobre">O projeto</a><a href="#equipe">Equipe</a><span class="version">BETA 01</span></nav></header>
 <main id="inicio"><section class="hero" aria-labelledby="title"><div class="room" aria-hidden="true"></div><div class="hero-heading"><p class="eyebrow"><span></span> NEM TUDO É O QUE PARECE <span></span></p><h1 id="title">Fui Trollado<span>?</span></h1><p>Antes de compartilhar, dê um pause.</p></div>
-<div class="scene" id="scene" data-state="idle" role="img" aria-label="Quarto em pixel art com um gamer diante do computador"><div class="portal-wrap"><img class="portal" src="./assets/05-portal.png" alt=""><img class="troll" src="./assets/04-troll-base-v3.png" alt=""></div><img class="desk" src="./assets/02-estacao-gamer.png" alt=""><div class="gamer-wrap"><img class="gamer" src="./assets/03-gamer-neutro.png" alt=""><div class="face-light"></div></div><div class="screen-light"></div><div class="speech" id="speech" aria-hidden="true">...</div><div class="impact" aria-hidden="true">!</div><div class="scene-caption"><span class="live-dot"></span> <span id="scene-caption">Só mais uma notícia…</span></div></div>
+<div class="scene" id="scene" data-state="idle" role="img" aria-label="Quarto em pixel art com um gamer diante do computador">
+  <div class="portal-wrap"><img class="portal" src="./assets/05-portal.png" alt=""></div>
+  <div class="troll-actor" aria-hidden="true">
+    <img class="troll-pose" data-pose="enter" src="./assets/animation/troll-enter.png" alt="" hidden>
+    <img class="troll-pose" data-pose="prepare" src="./assets/animation/troll-prepare.png" alt="" hidden>
+    <img class="troll-pose" data-pose="strike" src="./assets/animation/troll-strike.png" alt="" hidden>
+    <img class="troll-pose" data-pose="recover" src="./assets/animation/troll-recover.png" alt="" hidden>
+  </div>
+  <img class="desk" src="./assets/02-estacao-gamer.png" alt="">
+  <div class="gamer-wrap">
+    <img class="gamer" src="./assets/03-gamer-neutro.png" alt="">
+    <img class="gamer-pose" data-pose="impact" src="./assets/animation/gamer-impact.png" alt="" hidden>
+    <img class="gamer-pose" data-pose="dizzy-a" src="./assets/animation/gamer-dizzy-a.png" alt="" hidden>
+    <img class="gamer-pose" data-pose="dizzy-b" src="./assets/animation/gamer-dizzy-b.png" alt="" hidden>
+    <img class="gamer-pose" data-pose="recover" src="./assets/animation/gamer-recover.png" alt="" hidden>
+    <div class="dizzy-stars" aria-hidden="true"><i>✦</i><i>✦</i><i>✦</i></div>
+    <div class="face-light"></div>
+  </div>
+  <div class="screen-light"></div><div class="speech" id="speech" aria-hidden="true">...</div><div class="impact" aria-hidden="true">✷</div><div class="scene-caption"><span class="live-dot"></span> <span id="scene-caption">Só mais uma notícia…</span></div>
+</div>
 <div class="analysis-wrap shell"><section class="analysis-card" aria-labelledby="input-title"><div class="card-top"><span class="tiny">01 / SUA VEZ</span><span class="engine"><i></i> <span id="engine-status">Conectando ao modelo</span></span></div>
 <form id="analyze-form"><label id="input-title" for="texto">O que chegou até você?</label><p class="field-help" id="field-help">Cole uma notícia ou mensagem em português. Vamos analisar os padrões do texto.</p><div class="textarea-wrap"><textarea id="texto" name="text" rows="4" maxlength="5000" minlength="20" required placeholder="Cole aqui aquele texto que te deixou com uma pulga atrás da orelha…" aria-describedby="field-help field-error"></textarea><span class="counter" id="counter">0 / 5.000</span></div>
 <div class="model-controls"><div><label for="model-select">Escolha a versão</label><select id="model-select" name="model"><option value="atual">LR atual · referência</option><option value="normalizado">LR normalizada · experimental</option><option value="augmentation">LR + augmentation · experimental</option><option value="normalizado_char">LR normalizada + palavras e caracteres · experimental</option></select><p id="model-description" class="field-help">TF-IDF de palavras. Artefato original do estudo 09.</p></div><label class="compare-choice" for="compare-models"><input type="checkbox" id="compare-models" checked> Comparar as quatro versões</label></div>

@@ -3,6 +3,7 @@ const apiBase = (window.FUI_TROLLADO_CONFIG?.apiBase || '').replace(/\/$/, '');
 const pagesWithoutAPI = location.hostname.endsWith('.github.io') && !apiBase;
 const api = path => apiBase + path;
 const scene = $('scene');
+const trollSequence = createTrollSequence(scene);
 // Se o GitHub estiver indisponível, preservar o avatar com iniciais.
 document.querySelectorAll('.avatar-photo img').forEach(img => {
   const fallback = () => img.remove();
@@ -43,9 +44,8 @@ const states = {
 };
 function showState(kind, data = {}, preview = false) {
   const s = states[kind] || states.error;
-  scene.dataset.state = 'idle';
-  void scene.offsetWidth;
   scene.dataset.state = kind;
+  trollSequence.setState(kind);
   $('speech').textContent = s.speech;
   $('scene-caption').textContent = s.caption;
   $('result').dataset.kind = kind;
@@ -71,7 +71,10 @@ $('example').addEventListener('click', () => {
   $('texto').focus();
 });
 document.querySelectorAll('[data-preview]').forEach(button => button.addEventListener('click', () => {
-  if (!busy) { clearComparison(); showState(button.dataset.preview, {}, true); }
+  if (!busy) {
+    clearComparison(); showState(button.dataset.preview, {}, true);
+    scene.scrollIntoView({block:'center', behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+  }
 }));
 function setBusy(value) {
   busy = value;

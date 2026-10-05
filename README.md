@@ -91,6 +91,16 @@ Documentação: [o que o GitHub Pages hospeda](https://docs.github.com/en/pages/
 
 ## Verificar
 
+A animação de “não confiável” usa sprites preparados e uma linha do tempo de
+4,7 segundos, com alternativa estática para movimento reduzido. Os controles
+“Explorar as animações” permitem repetir e interromper a cena sem analisar texto.
+Recortes, alinhamento e instruções para regenerar os assets estão em
+[assets/sprites-v1/PREPARACAO.md](assets/sprites-v1/PREPARACAO.md).
+
+```sh
+node --test tests/scene-animation.test.cjs
+```
+
 ```sh
 python -m unittest discover -s tests -v
 ```
