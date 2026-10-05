@@ -24,18 +24,29 @@ function setup({reduced = false, decoding = Promise.resolve()} = {}) {
     visible:() => frames.filter(f => !f.hidden).map(f => f.dataset.pose),
     step(at) { time = at; const pending = [...jobs.values()]; jobs.clear(); pending.forEach(cb => cb(time)); },
     reduce(value) {media.matches = value; mediaEvents.change();},
-    hide() {document.hidden = true; events.visibilitychange();}};
+    hide() {document.hidden = true; events.visibilitychange();},
+    show() {document.hidden = false; events.visibilitychange();}};
 }
 
-test('sequência completa: impacto compartilhado, recuperação e fim sem loop', async () => {
+test('impacto compartilhado e tontura persistente sem callbacks ociosos', async () => {
   const s = setup(); await s.controller.setState('not_credible');
   for (const [at, phase, poses] of [
     [0,'portal',['enter']], [450,'enter',['enter']], [1200,'prepare',['prepare']],
     [1900,'strike',['strike','impact']], [2100,'dizzy',['recover','dizzy-a']],
-    [2600,'dizzy',['recover','dizzy-b']], [4100,'recover',['recover','recover']],
-    [4700,'settled',['recover']],
+    [4700,'dizzy',['recover','dizzy-a']], [60000,'dizzy',['recover','dizzy-a']],
   ]) {s.step(at); assert.equal(s.scene.dataset.phase,phase); assert.deepEqual(s.visible(),poses);}
   assert.equal(s.jobs.size,0);
+});
+
+test('passarinhos retomam ao voltar à aba ou desativar movimento reduzido', async () => {
+  const s = setup(); await s.controller.setState('not_credible'); s.step(2100);
+  s.hide(); assert.equal(s.scene.dataset.phase,'still');
+  s.show(); assert.equal(s.scene.dataset.phase,'dizzy');
+  s.reduce(true); assert.equal(s.scene.dataset.phase,'still');
+  s.reduce(false); assert.equal(s.scene.dataset.phase,'dizzy');
+  assert.equal(s.jobs.size,0);
+  await s.controller.setState('credible'); s.hide(); s.show(); s.reduce(false);
+  assert.equal(s.scene.dataset.phase,'idle');
 });
 
 test('somente a classe não confiável inicia a sequência', async () => {

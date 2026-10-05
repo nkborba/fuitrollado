@@ -17,8 +17,9 @@ abaixo de 12 são removidos no troll; as bordas semitransparentes são mantidas.
 As cadeiras e os corpos da folha do gamer não são suficientemente consistentes
 para substituição integral. Por isso, os quatro recortes dos olhos são camadas
 RGBA na tela original de 1024 × 1536. A cabeça, o corpo, a cadeira e as mãos
-continuam sendo os pixels do sprite neutro. As estrelas são uma camada CSS
-independente. O reflexo da tela continua acima das expressões e mantém sua
+continuam sendo os pixels do sprite neutro. Os passarinhos são um SVG em pixel art
+com órbita elíptica e asas animadas em CSS, sem GIF e sem temporizadores contínuos
+em JavaScript. O reflexo da tela continua acima das expressões e mantém sua
 máscara original. Não houve nova geração de imagens.
 
 ## Linha do tempo
@@ -29,23 +30,24 @@ máscara original. Não houve nova geração de imagens.
 | 450 ms | Entrada, sem mudança de escala | Neutro |
 | 1200 ms | Prepara a marreta | Neutro |
 | 1900 ms | Golpe e brilho de impacto | Olho fechado |
-| 2100–4100 ms | Marreta abaixada | Espirais e estrelas |
-| 4100 ms | Recuperação, portal fecha | Expressão cansada, uma estrela |
-| 4700 ms | Pose final estática | Neutro |
+| 2100 ms em diante | Marreta abaixada, portal aberto | Confuso, passarinhos circulando continuamente |
 
 `scene-animation.js` controla ambos os personagens no mesmo callback de
 `requestAnimationFrame`. Cada mudança de estado cancela o callback e invalida
 qualquer espera por decodificação anterior. Repetir “não confiável” recomeça
 desde o portal. As imagens são decodificadas antes do primeiro quadro.
-Movimento reduzido exibe troll e gamer tonto estáticos; ocultar a aba também
-interrompe a sequência. Os controles de prévia não executam inferência e levam
+Movimento reduzido exibe troll, gamer tonto e passarinhos estáticos; ocultar a aba
+pausa os passarinhos. Eles retomam ao voltar à aba ou desativar movimento reduzido,
+sem repetir o golpe. A tontura só acaba com uma mudança de estado ou nova análise.
+O portal conserva a geometria anterior (27% de largura no desktop, 33% no celular)
+e não fecha após o golpe. Os controles de prévia não executam inferência e levam
 o cenário para a área visível.
 
 ## Verificação
 
 - `node --test tests/scene-animation.test.cjs`: sequência, sincronismo, estados
   permitidos, cancelamento em cada fase, repetição, decodificação pendente,
-  movimento reduzido e aba oculta.
+  tontura persistente, movimento reduzido, aba oculta e retomada do movimento.
 - `python -m unittest discover -s tests -v`: previsões, hashes e contrato da API.
 - Navegador: desktop 1280 px e celular 390 px, golpe, tontura, recuperação,
   repetição e interrupção, incluindo respostas reais dos três resultados.

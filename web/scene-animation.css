@@ -4,22 +4,24 @@
 .gamer-pose{position:absolute;inset:0;pointer-events:none}
 .scene [data-pose][hidden]{display:none}
 .scene[data-state="not_credible"] .gamer-wrap{animation:none}
-.scene .portal-wrap{transition:opacity .3s,transform .4s steps(5,end)}
+/* Geometria original do portal, independente da escala dos quadros do troll. */
+.scene .portal-wrap{width:27%;height:95%;left:14%;top:3%;transition:opacity .3s,transform .4s steps(5,end)}
 .scene:is([data-phase="idle"],[data-phase="waiting"]) .portal-wrap{transition:none}
 .scene[data-state="not_credible"] .portal-wrap{opacity:0;transform:scaleX(.05)}
-.scene:is([data-phase="portal"],[data-phase="enter"],[data-phase="prepare"],[data-phase="strike"],[data-phase="dizzy"]) .portal-wrap{opacity:1;transform:scaleX(1)}
+.scene:is([data-phase="portal"],[data-phase="enter"],[data-phase="prepare"],[data-phase="strike"],[data-phase="dizzy"],[data-phase="still"]) .portal-wrap{opacity:1;transform:scaleX(1)}
 .scene:is([data-phase="enter"],[data-phase="prepare"],[data-phase="strike"],[data-phase="dizzy"],[data-phase="recover"],[data-phase="settled"],[data-phase="still"]) .troll-actor{opacity:1;transform:translateX(0)}
 .scene[data-phase="enter"] .troll-actor{transition:transform .65s steps(8,end),opacity .2s}
 .scene .impact,.scene[data-state="not_credible"] .impact{display:none;animation:none}
 .scene[data-phase="strike"] .impact{display:block;left:65%;top:13%;font-size:clamp(22px,4vw,48px);line-height:1;color:#ffe48b;text-shadow:0 0 12px #ffb739}
-.dizzy-stars{display:none;position:absolute;left:34%;top:0;width:48%;height:13%;pointer-events:none;color:#ffe17d;filter:drop-shadow(0 0 4px #edaa32);font-size:clamp(12px,2vw,24px)}
-.dizzy-stars i{position:absolute;font-style:normal;line-height:1;left:var(--x);top:var(--y);animation:starOrbit 1s steps(6,end) infinite;animation-delay:var(--delay)}
-.dizzy-stars i:nth-child(1){--x:0%;--y:48%;--delay:0s}
-.dizzy-stars i:nth-child(2){--x:42%;--y:0%;--delay:-.33s}
-.dizzy-stars i:nth-child(3){--x:84%;--y:48%;--delay:-.66s}
-.scene:is([data-phase="dizzy"],[data-phase="recover"],[data-phase="still"]) .dizzy-stars{display:block}
-.scene[data-phase="recover"] .dizzy-stars i:not(:first-child){display:none}
-.scene[data-phase="still"] .dizzy-stars i{animation:none}
-@keyframes starOrbit{0%,100%{transform:translate(0,0)}25%{transform:translate(5px,3px)}50%{transform:translate(0,6px)}75%{transform:translate(-5px,3px)}}
-@media(max-width:760px){.troll-actor{left:-8.5%;width:94%;bottom:-5%}.scene[data-phase="strike"] .impact{left:66%;top:20%}}
-@media(prefers-reduced-motion:reduce){.troll-actor,.portal-wrap{transition:none!important}.dizzy-stars i{animation:none!important}}
+.dizzy-birds{display:none;position:absolute;left:30%;top:-2%;width:54%;height:12%;pointer-events:none;filter:drop-shadow(0 0 3px #edaa3266)}
+.dizzy-birds i{position:absolute;width:clamp(15px,2.3vw,27px);aspect-ratio:24/18;background:url('./assets/animation/bird.svg') center/contain no-repeat;image-rendering:pixelated;offset-path:ellipse(44% 32% at 50% 50%);offset-rotate:0deg;offset-distance:var(--orbit);animation:birdOrbit 2.1s linear infinite;animation-delay:var(--delay)}
+.dizzy-birds i::after{content:"";position:absolute;left:28%;top:38%;width:45%;height:40%;background:#e6a73b;clip-path:polygon(0 0,100% 15%,80% 75%,25% 100%);transform-origin:90% 20%;animation:birdWing .24s steps(2,end) infinite}
+.dizzy-birds i:nth-child(1){--orbit:0%;--delay:0s}
+.dizzy-birds i:nth-child(2){--orbit:33.333%;--delay:-.7s}
+.dizzy-birds i:nth-child(3){--orbit:66.667%;--delay:-1.4s}
+.scene:is([data-phase="dizzy"],[data-phase="still"]) .dizzy-birds{display:block}
+.scene[data-phase="still"] .dizzy-birds i,.scene[data-phase="still"] .dizzy-birds i::after{animation:none}
+@keyframes birdOrbit{from{offset-distance:0%}to{offset-distance:100%}}
+@keyframes birdWing{50%{transform:scaleY(-.8)}}
+@media(max-width:760px){.scene .portal-wrap{width:33%;left:3%}.troll-actor{left:-8.5%;width:94%;bottom:-5%}.scene[data-phase="strike"] .impact{left:66%;top:20%}}
+@media(prefers-reduced-motion:reduce){.troll-actor,.portal-wrap{transition:none!important}.dizzy-birds i,.dizzy-birds i::after{animation:none!important}}

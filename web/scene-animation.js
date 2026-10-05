@@ -12,11 +12,6 @@ function createTrollSequence(scene) {
     [1200, 'prepare', 'prepare', 'neutral'],
     [1900, 'strike', 'strike', 'impact'],
     [2100, 'dizzy', 'recover', 'dizzy-a'],
-    [2600, 'dizzy', 'recover', 'dizzy-b'],
-    [3100, 'dizzy', 'recover', 'dizzy-a'],
-    [3600, 'dizzy', 'recover', 'dizzy-b'],
-    [4100, 'recover', 'recover', 'recover'],
-    [4700, 'settled', 'recover', 'neutral'],
   ];
   function paint(phase, troll, gamer) {
     scene.dataset.phase = phase;
@@ -63,9 +58,15 @@ function createTrollSequence(scene) {
     }
     request = requestAnimationFrame(tick);
   }
-  motion.addEventListener('change', () => { if (active) { generation++; still(); } });
+  function updateMotion() {
+    if (!active) return;
+    generation++;
+    still();
+    if (!motion.matches && !document.hidden) paint('dizzy', 'recover', 'dizzy-a');
+  }
+  motion.addEventListener('change', updateMotion);
   document.addEventListener('visibilitychange', () => {
-    if (active && document.hidden) { generation++; still(); }
+    updateMotion();
   });
   window.addEventListener('pagehide', cancel);
   return {setState};
