@@ -39,7 +39,7 @@ def analyze():
     data = request.get_json()
     if not isinstance(data, dict) or not isinstance(data.get('text'), str):
         return jsonify(error='Envie um texto válido.'), 400
-    kind = data.get('model', 'normalizado')
+    kind = data.get('model', 'normalizado_char')
     if not isinstance(kind, str) or kind not in models or not isinstance(data.get('compare',False), bool):
         return jsonify(error='Selecione um modelo e uma opção de comparação válidos.'), 400
     text = clean(data['text'])
