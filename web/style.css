@@ -50,6 +50,18 @@
 
 .hero-heading > p:last-child{font-family:monospace}
 
+/* Resultado junto da cena, com contraste e hierarquia de terminal. */
+#result{--result-accent:var(--cyan);margin:0 0 24px;padding:22px 24px;gap:18px;align-items:flex-start;background:#020907;border:1px solid var(--result-accent);border-left:5px solid var(--result-accent);box-shadow:5px 5px 0 #0008;font-family:monospace}
+#result[data-kind="credible"]{--result-accent:#b4ff4c}
+#result[data-kind="not_credible"],#result[data-kind="error"]{--result-accent:#ffb190}
+#result[data-kind="abster"]{--result-accent:#ffce83}
+#result .result-icon{background:#102018;color:var(--result-accent);border-color:var(--result-accent);margin-top:2px}
+#result .terminal-label{color:var(--result-accent);font:10px/1.4 monospace;letter-spacing:1.5px;margin-bottom:9px}
+#result h2{font:700 clamp(17px,2vw,22px)/1.35 monospace;color:var(--result-accent);margin-bottom:9px;overflow-wrap:anywhere}
+#result p{color:#e1ece5;font-size:13px;line-height:1.6}
+#result .probability{color:#fff;font-size:12px;margin-top:12px;padding-top:10px;border-top:1px solid #385244}
+@media(max-width:760px){#result{padding:16px 14px;gap:10px;margin-bottom:20px}#result .result-icon{width:28px;height:28px;font-size:18px}#result .terminal-label{font-size:9px;letter-spacing:.6px}#result p{font-size:12px}#result .probability{font-size:11px}}
+
 /* Cursor de terminal: alterna visibilidade sem deslocar o título. */
 #team-title > span{animation:squadCursor 1s step-end infinite}
 @keyframes squadCursor{0%,100%{opacity:1}50%{opacity:0}}

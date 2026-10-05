@@ -4,6 +4,14 @@ const pagesWithoutAPI = location.hostname.endsWith('.github.io') && !apiBase;
 const api = path => apiBase + path;
 const scene = $('scene');
 const trollSequence = createTrollSequence(scene);
+function revealScene() {
+  // Reserva espaço acima da cena para a marreta; o resultado fica logo abaixo.
+  const headroom = matchMedia('(max-width: 760px)').matches ? 40 : 130;
+  window.scrollTo({
+    top: Math.max(0, window.scrollY + scene.getBoundingClientRect().top - headroom),
+    behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+  });
+}
 // Se o GitHub estiver indisponível, preservar o avatar com iniciais.
 document.querySelectorAll('.avatar-photo img').forEach(img => {
   const fallback = () => img.remove();
@@ -73,7 +81,7 @@ $('example').addEventListener('click', () => {
 document.querySelectorAll('[data-preview]').forEach(button => button.addEventListener('click', () => {
   if (!busy) {
     clearComparison(); showState(button.dataset.preview, {}, true);
-    scene.scrollIntoView({block:'center', behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+    revealScene();
   }
 }));
 function setBusy(value) {
@@ -95,6 +103,8 @@ $('analyze-form').addEventListener('submit', async event => {
   if (text.length < 20) { $('field-error').textContent = 'Cole pelo menos 20 caracteres para analisar.'; return; }
   $('field-error').textContent = '';
   clearComparison(); setBusy(true); showState('loading');
+  $('texto').blur();
+  revealScene();
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 90000);
   try {
