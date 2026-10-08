@@ -93,7 +93,8 @@ class ModelRegistryTests(unittest.TestCase):
     def test_desativado_nao_carrega_nem_aparece_na_api(self):
         self.settings["enable"] = True
         self.manifest["models"]["desativado"] = {
-            "enable": False, "artifact": "arquivo_ausente.joblib"
+            "enable": False,
+            "artifact": "arquivo_ausente.joblib",
         }
         with patch("prediction.registry.joblib.load", wraps=joblib.load) as load:
             registry = self.load_registry()
