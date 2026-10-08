@@ -39,8 +39,11 @@ class ModelRegistry:
         entries = manifest.get("models")
         if manifest.get("schema_version") != 2 or not isinstance(entries, dict) or not entries:
             raise ValueError("manifest.json precisa de schema_version 2 e models não vazio.")
+        entries = enabled_entries(entries)
+        if not entries:
+            raise ValueError("Habilite pelo menos um modelo com enable: true.")
         if manifest.get("default_model") not in entries:
-            raise ValueError("default_model precisa indicar um modelo cadastrado.")
+            raise ValueError("default_model precisa indicar um modelo cadastrado e habilitado.")
         models = {}
         for model_id, settings in entries.items():
             try:
@@ -64,13 +67,31 @@ class ModelRegistry:
         return {
             "default_model": self.default_model_id,
             "models": {
-                model_id: {key: settings[key] for key in PUBLIC_FIELDS if key in settings}
-                for model_id, settings in self.manifest["models"].items()
+                model_id: {
+                    key: self.manifest["models"][model_id][key]
+                    for key in PUBLIC_FIELDS
+                    if key in self.manifest["models"][model_id]
+                }
+                for model_id in self.models
             },
             "run": self.manifest.get("run"),
             "n_dev": self.manifest.get("n_dev"),
             "folds": self.manifest.get("outer_folds"),
         }
+
+
+def enabled_entries(entries: dict) -> dict:
+    """Filtra antes de validar artefatos; cadastros antigos continuam habilitados."""
+    enabled = {}
+    for model_id, settings in entries.items():
+        if not isinstance(settings, dict):
+            raise ValueError(f"{model_id}: o cadastro deve ser um objeto JSON.")
+        flag = settings.get("enable", True)
+        if not isinstance(flag, bool):
+            raise ValueError(f"{model_id}: enable deve ser true ou false, sem aspas.")
+        if flag:
+            enabled[model_id] = settings
+    return enabled
 
 
 def validate_settings(settings: dict) -> None:

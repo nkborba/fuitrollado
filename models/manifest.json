@@ -10,6 +10,7 @@
     "atual": {
       "name": "LR atual",
       "description": "TF-IDF de palavras. Artefato original do estudo 09.",
+      "enable": true,
       "metrics": {
         "f1_nc": {
           "mean": 0.8987965574536274,
@@ -73,6 +74,7 @@
     "normalizado": {
       "name": "LR normalizada",
       "description": "Padroniza a escrita e preserva os números no TF-IDF de palavras.",
+      "enable": false,
       "metrics": {
         "f1_nc": {
           "mean": 0.8898452646465957,
@@ -136,6 +138,7 @@
     "augmentation": {
       "name": "LR + augmentation",
       "description": "Aprende com variações controladas de escrita no treino.",
+      "enable": false,
       "metrics": {
         "f1_nc": {
           "mean": 0.898716503548604,
@@ -199,6 +202,7 @@
     "normalizado_char": {
       "name": "LR normalizada + palavras e caracteres",
       "description": "Combina palavras e sequências de 3 a 5 caracteres.",
+      "enable": true,
       "metrics": {
         "f1_nc": {
           "mean": 0.8997549815839134,

@@ -23,6 +23,9 @@ class SiteTests(unittest.TestCase):
                 response = self.client.post(
                     "/api/analyze", json={"text": row["text"], "model": row["model"]}
                 )
+                if row["model"] not in self.models:
+                    self.assertEqual(response.status_code, 400)
+                    continue
                 self.assertEqual(response.status_code, 200)
                 self.assertAlmostEqual(response.json["probability"], row["probability"], places=12)
 
@@ -47,6 +50,8 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(r.json["model_id"], "normalizado_char")
         self.assertEqual(r.json["label"], "abster")
         for kind in ("normalizado", "normalizado_char"):
+            if kind not in self.models:
+                continue
             model = self.models[kind]
             a, b = model.predict_proba(
                 ["O governo brasileiro proibiu GTA6.", "O governo brasileiro proibiu GTA 6."]

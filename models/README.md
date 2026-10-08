@@ -65,6 +65,7 @@ Adicione uma entrada dentro de `models`, ao lado das LRs. Exemplo:
 
 ```json
 "knn_v1": {
+  "enable": true,
   "name": "KNN + TF-IDF",
   "description": "KNN treinado com TF-IDF de palavras.",
   "family": "KNN",
@@ -84,6 +85,22 @@ Use `positive_class: 1` somente se **1 for o rótulo de não confiável no seu t
 O identificador, como `knn_v1`, deve ser único e estável. `name` aparece no site; `family` agrupa o seletor; `version` identifica o artefato. `artifact` é relativo a esta pasta. Para mudar a seleção inicial, altere `default_model` na raiz do manifesto.
 
 Não adicione uma lista `artifacts`: a versão 2 do cadastro reúne o caminho e as informações na mesma entrada. Reinicie o servidor depois de alterar o cadastro ou um arquivo de modelo.
+
+### Habilitar ou desabilitar
+
+Cada entrada em `models` aceita `"enable": true` ou `"enable": false`.
+Sem a propriedade, o modelo continua habilitado. Use booleanos, sem aspas.
+
+Com `false`, o modelo não é carregado, não aparece no seletor e não entra nas
+comparações. A API também rejeita pedidos que tentem usá-lo diretamente.
+O arquivo treinado pode continuar na pasta; basta trocar para `true` e reiniciar
+o servidor para disponibilizá-lo novamente. Os artefatos desabilitados não são
+verificados durante a inicialização.
+
+Mantenha pelo menos um modelo habilitado. `default_model` precisa apontar para
+um deles; o servidor informa o erro se o padrão estiver desabilitado.
+Na configuração da apresentação, `atual` e `normalizado_char` estão habilitados;
+`normalizado` e `augmentation` estão desabilitados.
 
 ### 4. Verificar
 

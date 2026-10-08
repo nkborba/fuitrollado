@@ -90,6 +90,46 @@ class ModelRegistryTests(unittest.TestCase):
         self.assertEqual(len(result.json["comparisons"]), 1)
         self.assertEqual(client.get("/api/health").json["model_id"], "knn_teste")
 
+    def test_desativado_nao_carrega_nem_aparece_na_api(self):
+        self.settings["enable"] = True
+        self.manifest["models"]["desativado"] = {
+            "enable": False, "artifact": "arquivo_ausente.joblib"
+        }
+        with patch("prediction.registry.joblib.load", wraps=joblib.load) as load:
+            registry = self.load_registry()
+            self.assertEqual(load.call_count, 1)
+        client = create_app(registry).test_client()
+        self.assertEqual(set(registry.models), {"knn_teste"})
+        self.assertEqual(set(client.get("/api/models").json["models"]), {"knn_teste"})
+        self.assertEqual(client.get("/api/health").json["model_count"], 1)
+        payload = {"text": "oferta golpe senha oferta golpe senha", "compare": True}
+        response = client.post("/api/analyze", json=payload)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json["comparisons"]), 1)
+        payload["model"] = "desativado"
+        self.assertEqual(client.post("/api/analyze", json=payload).status_code, 400)
+        # Reativar restaura a entrada sem qualquer mudança no código.
+        self.manifest["models"]["desativado"] = dict(self.settings, enable=True)
+        self.assertEqual(len(self.load_registry().models), 2)
+
+    def test_rejeita_enable_que_nao_seja_booleano(self):
+        for value in ["false", "true", 0, 1, None, []]:
+            with self.subTest(value=value):
+                self.settings["enable"] = value
+                with self.assertRaisesRegex(ValueError, "enable"):
+                    self.load_registry()
+
+    def test_rejeita_padrao_desativado(self):
+        self.settings["enable"] = False
+        self.manifest["models"]["outro"] = dict(self.settings, enable=True)
+        with self.assertRaisesRegex(ValueError, "default_model"):
+            self.load_registry()
+
+    def test_rejeita_todos_desativados(self):
+        self.settings["enable"] = False
+        with self.assertRaisesRegex(ValueError, "pelo menos um modelo"):
+            self.load_registry()
+
     def test_classe_positiva_e_limites_da_abstencao(self):
         settings = dict(self.settings, delta=0.375)
         for probability, label in [
