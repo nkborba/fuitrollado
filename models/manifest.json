@@ -8,7 +8,7 @@
   "delta": 0.375,
   "models": {
     "atual": {
-      "name": "LR atual",
+      "name": "LR - baseline",
       "description": "TF-IDF de palavras. Artefato original do estudo 09.",
       "enable": true,
       "metrics": {
